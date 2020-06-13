@@ -18,7 +18,7 @@ import javafx.stage.StageStyle;
 
 public class AlertMessage {
 
-    AnchorPane anchorPane;
+    AnchorPane  anchorPane;
 
     private VBox vBox;
     private HBox hBox;
@@ -35,9 +35,23 @@ public class AlertMessage {
 
     static String buttonAnswer;
 
+    public AlertMessage(){
+
+    }
+
+    public AlertMessage(String messageText){
+
+        showAlertMessage(messageText, "");
+
+    }
+
+    public AlertMessage(String messageText, String thirdButtonTxt) {
+
+        showAlertMessage(messageText, thirdButtonTxt);
+    }
 
 
-    public String AlertMessage(String messageTextVar, String thirdBtnTxt){
+    public String showAlertMessage(String messageTextVar, String thirdBtnTxt){
          stage = new Stage();
 
          anchorPane = new AnchorPane();
@@ -89,7 +103,7 @@ public class AlertMessage {
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
         VBox.setMargin(imageView, new Insets(5.0, 0.0, 0.0, 10.0));
-        imageView.setImage(new Image(getClass().getResource("/img/warning-circle.png").toExternalForm()));
+        imageView.setImage(new Image(AlertMessage.class.getResource("/img/warning-circle.png").toExternalForm()));
 
         label.setAlignment(javafx.geometry.Pos.CENTER_RIGHT);
         label.setPrefHeight(50.0);
@@ -143,7 +157,7 @@ public class AlertMessage {
             oldStage.close();
         });
         thirdBtn.setOnAction(event -> {
-            buttonAnswer = "thirdBtn";
+            buttonAnswer = "thirdButton";
             Stage oldStage = (Stage) vBox.getScene().getWindow();
             oldStage.close();
         });
