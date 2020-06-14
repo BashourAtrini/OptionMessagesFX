@@ -39,11 +39,29 @@ public class AlertMessage {
 
     String buttonsColor;
 
-    String thirdButtonTxt;
+    String thirdButtonTxt = "";
 
     String headerText;
 
     String messageText;
+
+    String imageSource;
+
+    public String getThirdButtonTxt() {
+        return thirdButtonTxt;
+    }
+
+    public void setThirdButtonTxt(String thirdButtonTxt) {
+        this.thirdButtonTxt = thirdButtonTxt;
+    }
+
+    public String getImageSource() {
+        return imageSource;
+    }
+
+    public void setImageSource(String imageSource) {
+        this.imageSource = imageSource;
+    }
 
     public String getHeaderText() {
         return headerText;
@@ -67,9 +85,6 @@ public class AlertMessage {
 
     public void setButtonsColor(String buttonsColor) {
         this.buttonsColor = buttonsColor;
-        okBtn.setStyle("-fx-background-color:" +buttonsColor+";");
-        cancleBtn.setStyle("-fx-background-color:" +buttonsColor+";");
-        thirdBtn.setStyle("-fx-background-color:" +buttonsColor+";");
     }
 
     public AlertMessage(){
@@ -82,7 +97,7 @@ public class AlertMessage {
         this.headerText = headerText;
         this.messageText = messageText;
 
-        showAlertMessage(headerText, messageText, "", "#c3c3c3");
+        showAlertMessage(headerText, messageText, "", "#c3c3c3", "/img/warning-triangle.png");
 
     }
 
@@ -93,7 +108,7 @@ public class AlertMessage {
         this.messageText = messageText;
         this.thirdButtonTxt = thirdButtonTxt;
 
-        showAlertMessage(headerText, messageText, thirdButtonTxt, "#c3c3c3");
+        showAlertMessage(headerText, messageText, thirdButtonTxt, "#c3c3c3", "/img/warning-triangle.png");
     }
 
     public AlertMessage(String headerText, String messageText, String thirdButtonTxt, String buttonsColor){
@@ -103,11 +118,21 @@ public class AlertMessage {
         this.thirdButtonTxt = thirdButtonTxt;
         this.buttonsColor = buttonsColor;
 
-        showAlertMessage(headerText, messageText, thirdButtonTxt, buttonsColor);
+        showAlertMessage(headerText, messageText, thirdButtonTxt, buttonsColor, "/img/warning-triangle.png");
+    }
+
+    public AlertMessage(String headerText, String messageText, String thirdButtonTxt, String buttonsColor, String imageSource){
+        super();
+        this.headerText = headerText;
+        this.messageText = messageText;
+        this.thirdButtonTxt = thirdButtonTxt;
+        this.buttonsColor = buttonsColor;
+
+        showAlertMessage(headerText, messageText, thirdButtonTxt, buttonsColor, imageSource);
     }
 
 
-    public String showAlertMessage(String headerText, String messageTextVar, String thirdBtnTxt, String buttonsColor){
+    public String showAlertMessage(String headerText, String messageTextVar, String thirdBtnTxt, String buttonsColor, String imageSource){
          stage = new Stage();
 
          anchorPane = new AnchorPane();
@@ -160,7 +185,8 @@ public class AlertMessage {
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
         VBox.setMargin(imageView, new Insets(5.0, 5.0, 5.0, 10.0));
-        imageView.setImage(new Image(AlertMessage.class.getResource("/img/warning-triangle.png").toExternalForm()));
+
+        imageView.setImage(new Image(AlertMessage.class.getResource(imageSource).toExternalForm()));
 
         label.setAlignment(Pos.CENTER_LEFT);
         label.setPrefHeight(50.0);
@@ -210,6 +236,140 @@ public class AlertMessage {
              buttonAnswer = "yes";
              Stage oldStage = (Stage) vBox.getScene().getWindow();
              oldStage.close();
+        });
+        cancleBtn.setOnAction(event -> {
+            buttonAnswer = "no";
+            new BounceOut(anchorPane).play();
+            Stage oldStage = (Stage) vBox.getScene().getWindow();
+            oldStage.close();
+        });
+        thirdBtn.setOnAction(event -> {
+            buttonAnswer = "thirdButton";
+            Stage oldStage = (Stage) vBox.getScene().getWindow();
+            oldStage.close();
+        });
+
+
+        Scene scene = new Scene(anchorPane);
+//        stage.initStyle(StageStyle.UNDECORATED);
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        stage.setTitle("Alert Message");
+
+        new Shake(anchorPane).play();
+
+        stage.setScene(scene);
+        stage.showAndWait();
+
+        return buttonAnswer;
+    }
+
+
+    public String showAlertMessage(){
+        stage = new Stage();
+
+        anchorPane = new AnchorPane();
+
+        vBox = new VBox();
+        hBox = new HBox();
+        vBox0 = new VBox();
+        imageView = new ImageView();
+        label = new Label();
+        messageTxt = new Label();
+        hBox0 = new HBox();
+        cancleBtn = new JFXButton("No");
+        okBtn = new JFXButton("Yes");
+        thirdBtn = new JFXButton(getThirdButtonTxt());
+
+
+        anchorPane.setPrefHeight(148.0);
+        anchorPane.setPrefWidth(432.0);
+
+        okBtn.setPrefSize(60.0, 30);
+        cancleBtn.setPrefSize(60.0, 30);
+        thirdBtn.setPrefSize(100.0, 30);
+
+        hBox.setStyle("-fx-background-color:  #e2e2e2");
+
+        stage.setAlwaysOnTop(true);
+
+
+        anchorPane.setBottomAnchor(vBox, 0.0);
+        anchorPane.setLeftAnchor(vBox, 0.0);
+        anchorPane.setRightAnchor(vBox, 0.0);
+        anchorPane.setTopAnchor(vBox, 0.0);
+        vBox.setAlignment(Pos.TOP_LEFT);
+        vBox.setLayoutX(158.0);
+        vBox.setLayoutY(-33.0);
+        vBox.setPrefHeight(167.0);
+        vBox.setPrefWidth(432.0);
+
+        hBox.setAlignment(Pos.TOP_LEFT);
+        hBox.setPrefHeight(41.0);
+        hBox.setPrefWidth(432.0);
+
+        HBox.setHgrow(vBox0, javafx.scene.layout.Priority.ALWAYS);
+        vBox0.setAlignment(Pos.CENTER_RIGHT);
+        vBox0.setPrefHeight(200.0);
+        vBox0.setPrefWidth(383.0);
+
+        imageView.setFitHeight(45.0);
+        imageView.setFitWidth(55.0);
+        imageView.setPickOnBounds(true);
+        imageView.setPreserveRatio(true);
+        VBox.setMargin(imageView, new Insets(5.0, 5.0, 5.0, 10.0));
+
+        imageView.setImage(new Image(AlertMessage.class.getResource(getImageSource()).toExternalForm()));
+
+        label.setAlignment(Pos.CENTER_LEFT);
+        label.setPrefHeight(50.0);
+        label.setPrefWidth(338.0);
+        label.setText(headerText);
+        label.setFont(new Font(18.0));
+        HBox.setMargin(label, new Insets(0.0, 5.0, 0.0, 10.0));
+        VBox.setMargin(hBox, new Insets(0.0, 0.0, 10.0, 0.0));
+
+        messageTxt.setAlignment(Pos.CENTER_LEFT);
+        messageTxt.setText(getMessageText());
+        messageTxt.setFont(new Font(15.0));
+        VBox.setMargin(messageTxt, new Insets(0.0, 10.0, 20.0, 15.0));
+
+        hBox0.setAlignment(Pos.CENTER);
+        VBox.setMargin(hBox0, new Insets(0.0, 15.0, 10.0, 0.0));
+
+//        thirdBtn.getStylesheets().add("/css/other_css.css");
+        HBox.setMargin(thirdBtn, new Insets(0.0, 20.0, 0.0, 0.0));
+
+//        cancleBtn.getStylesheets().add("/css/other_css.css");
+        HBox.setMargin(cancleBtn, new Insets(0.0, 20.0, 0.0, 0.0));
+
+        okBtn.setLayoutX(346.0);
+        okBtn.setLayoutY(10.0);
+//        okBtn.getStyleClass().add("button");
+//        okBtn.getStylesheets().add("/css/other_css.css");
+
+        okBtn.setStyle("-fx-background-color: "+getButtonsColor()+";");
+        cancleBtn.setStyle("-fx-background-color: "+getButtonsColor()+";");
+        thirdBtn.setStyle("-fx-background-color: "+getButtonsColor()+";");
+
+
+        hBox.getChildren().add(label);
+        vBox0.getChildren().add(imageView);
+        hBox.getChildren().add(vBox0);
+        vBox.getChildren().add(hBox);
+        vBox.getChildren().add(messageTxt);
+        if (! thirdButtonTxt.equals("")){
+            hBox0.getChildren().add(thirdBtn);}
+        hBox0.getChildren().add(cancleBtn);
+        hBox0.getChildren().add(okBtn);
+        vBox.getChildren().add(hBox0);
+        anchorPane.getChildren().add(vBox);
+
+        okBtn.setOnAction(event -> {
+            buttonAnswer = "yes";
+            Stage oldStage = (Stage) vBox.getScene().getWindow();
+            oldStage.close();
         });
         cancleBtn.setOnAction(event -> {
             buttonAnswer = "no";
