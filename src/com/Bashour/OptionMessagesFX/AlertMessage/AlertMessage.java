@@ -1,4 +1,4 @@
-package com.OptionMessagesFX.AlertMessage;
+package com.Bashour.OptionMessagesFX.AlertMessage;
 
 import animatefx.animation.BounceIn;
 import animatefx.animation.BounceOut;
@@ -16,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class AlertMessage {
 
@@ -46,6 +45,9 @@ public class AlertMessage {
     String messageText;
 
     String imageSource;
+
+    boolean enableBouncing = false;
+    boolean enableShaking = false;
 
     public String getThirdButtonTxt() {
         return thirdButtonTxt;
@@ -97,7 +99,13 @@ public class AlertMessage {
         this.headerText = headerText;
         this.messageText = messageText;
 
-        showAlertMessage(headerText, messageText, "", "#c3c3c3", "/img/warning-triangle.png");
+        if (imageSource.isEmpty() && buttonsColor.isEmpty()) {
+            showAlertMessage(headerText, messageText, "", "#c3c3c3", "/img/warning-triangle.png");
+        }else{
+            showAlertMessage(headerText, messageText, getThirdButtonTxt(), getButtonsColor(), getImageSource());
+        }
+
+
 
     }
 
@@ -108,7 +116,11 @@ public class AlertMessage {
         this.messageText = messageText;
         this.thirdButtonTxt = thirdButtonTxt;
 
-        showAlertMessage(headerText, messageText, thirdButtonTxt, "#c3c3c3", "/img/warning-triangle.png");
+        if (imageSource.isEmpty() && buttonsColor.isEmpty()) {
+            showAlertMessage(headerText, messageText, thirdButtonTxt, "#c3c3c3", "/img/warning-triangle.png");
+        }else{
+            showAlertMessage(headerText, messageText, thirdButtonTxt, buttonsColor, getImageSource());
+        }
     }
 
     public AlertMessage(String headerText, String messageText, String thirdButtonTxt, String buttonsColor){
@@ -118,7 +130,11 @@ public class AlertMessage {
         this.thirdButtonTxt = thirdButtonTxt;
         this.buttonsColor = buttonsColor;
 
-        showAlertMessage(headerText, messageText, thirdButtonTxt, buttonsColor, "/img/warning-triangle.png");
+        if (imageSource.isEmpty()) {
+            showAlertMessage(headerText, messageText, thirdButtonTxt, buttonsColor, "/img/warning-triangle.png");
+        }else{
+            showAlertMessage(headerText, messageText, thirdButtonTxt, buttonsColor, getImageSource());
+        }
     }
 
     public AlertMessage(String headerText, String messageText, String thirdButtonTxt, String buttonsColor, String imageSource){
@@ -257,7 +273,12 @@ public class AlertMessage {
 
         stage.setTitle("Alert Message");
 
-        new Shake(anchorPane).play();
+        if (enableBouncing) {
+            new BounceIn(anchorPane).play();
+        }
+        if (enableShaking){
+            new Shake(anchorPane).play();
+        }
 
         stage.setScene(scene);
         stage.showAndWait();
@@ -391,7 +412,12 @@ public class AlertMessage {
 
         stage.setTitle("Alert Message");
 
-        new Shake(anchorPane).play();
+        if (enableBouncing) {
+            new BounceIn(anchorPane).play();
+        }
+        if (enableShaking){
+            new Shake(anchorPane).play();
+        }
 
         stage.setScene(scene);
         stage.showAndWait();
