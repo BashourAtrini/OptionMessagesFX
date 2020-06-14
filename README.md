@@ -8,6 +8,11 @@ Features:
   * customizable for your needs
   * More to come
   
+  
+# Installation:
+
+  [First release](https://github.com/BashourAtrini/OptionMessagesFX/releases/download/1.0.0/OptionMessagesFX-1.0.0.jar)
+  
 # Quick start
 
 ### Examples for Confirm Pane:
