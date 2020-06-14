@@ -1,4 +1,4 @@
-package com.Bashour.OptionMessagesFX.AlertMessage;
+package com.Bashour.OptionMessagesFX.DialogMessage;
 
 import animatefx.animation.BounceIn;
 import animatefx.animation.BounceOut;
@@ -17,7 +17,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AlertMessage {
+public class DialogMessage {
 
     AnchorPane  anchorPane;
 
@@ -28,9 +28,8 @@ public class AlertMessage {
     private Label label;
     private Label messageTxt;
     private HBox hBox0;
-    private JFXButton cancleBtn;
     private JFXButton okBtn;
-    private JFXButton thirdBtn;
+
 
     private Stage stage;
 
@@ -38,9 +37,7 @@ public class AlertMessage {
 
     String buttonsColor = "";
 
-    String thirdButtonTxt = "";
-
-    String headerText = "";
+    String headerText= "";
 
     String messageText = "";
 
@@ -63,14 +60,6 @@ public class AlertMessage {
 
     public void setEnableShaking(boolean enableShaking) {
         this.enableShaking = enableShaking;
-    }
-
-    public String getThirdButtonTxt() {
-        return thirdButtonTxt;
-    }
-
-    public void setThirdButtonTxt(String thirdButtonTxt) {
-        this.thirdButtonTxt = thirdButtonTxt;
     }
 
     public String getImageSource() {
@@ -105,66 +94,52 @@ public class AlertMessage {
         this.buttonsColor = buttonsColor;
     }
 
-    public AlertMessage(){
+    public DialogMessage(){
 
     }
 
-    public AlertMessage(String headerText, String messageText){
+    public DialogMessage(String headerText, String messageText){
         super();
 
         this.headerText = headerText;
         this.messageText = messageText;
 
         if (imageSource.isEmpty() && buttonsColor.isEmpty()) {
-            showAlertMessage(headerText, messageText, "", "#c3c3c3", "/img/warning-triangle.png");
+            showDialogMessage(headerText, messageText, "#c3c3c3", "/img/warning-triangle.png");
         }else{
-            showAlertMessage(headerText, messageText, getThirdButtonTxt(), getButtonsColor(), getImageSource());
+            showDialogMessage(headerText, messageText, getButtonsColor(), getImageSource());
         }
 
 
 
     }
 
-    public AlertMessage(String headerText, String messageText, String thirdButtonTxt) {
 
+
+    public DialogMessage(String headerText, String messageText, String buttonsColor){
         super();
         this.headerText = headerText;
         this.messageText = messageText;
-        this.thirdButtonTxt = thirdButtonTxt;
-
-        if (imageSource.isEmpty() && buttonsColor.isEmpty()) {
-            showAlertMessage(headerText, messageText, thirdButtonTxt, "#c3c3c3", "/img/warning-triangle.png");
-        }else{
-            showAlertMessage(headerText, messageText, thirdButtonTxt, buttonsColor, getImageSource());
-        }
-    }
-
-    public AlertMessage(String headerText, String messageText, String thirdButtonTxt, String buttonsColor){
-        super();
-        this.headerText = headerText;
-        this.messageText = messageText;
-        this.thirdButtonTxt = thirdButtonTxt;
         this.buttonsColor = buttonsColor;
 
         if (imageSource.isEmpty()) {
-            showAlertMessage(headerText, messageText, thirdButtonTxt, buttonsColor, "/img/warning-triangle.png");
+            showDialogMessage(headerText, messageText, buttonsColor, "/img/warning-triangle.png");
         }else{
-            showAlertMessage(headerText, messageText, thirdButtonTxt, buttonsColor, getImageSource());
+            showDialogMessage(headerText, messageText, buttonsColor, getImageSource());
         }
     }
 
-    public AlertMessage(String headerText, String messageText, String thirdButtonTxt, String buttonsColor, String imageSource){
+    public DialogMessage(String headerText, String messageText, String buttonsColor, String imageSource){
         super();
         this.headerText = headerText;
         this.messageText = messageText;
-        this.thirdButtonTxt = thirdButtonTxt;
         this.buttonsColor = buttonsColor;
 
-        showAlertMessage(headerText, messageText, thirdButtonTxt, buttonsColor, imageSource);
+        showDialogMessage(headerText, messageText, buttonsColor, imageSource);
     }
 
 
-    public String showAlertMessage(String headerText, String messageTextVar, String thirdBtnTxt, String buttonsColor, String imageSource){
+    public String showDialogMessage(String headerText, String messageTextVar, String buttonsColor, String imageSource){
          stage = new Stage();
 
          anchorPane = new AnchorPane();
@@ -176,17 +151,13 @@ public class AlertMessage {
         label = new Label();
         messageTxt = new Label();
         hBox0 = new HBox();
-        cancleBtn = new JFXButton("No");
-        okBtn = new JFXButton("Yes");
-        thirdBtn = new JFXButton(thirdBtnTxt);
+        okBtn = new JFXButton("OK");
 
 
         anchorPane.setPrefHeight(148.0);
         anchorPane.setPrefWidth(432.0);
 
         okBtn.setPrefSize(60.0, 30);
-        cancleBtn.setPrefSize(60.0, 30);
-        thirdBtn.setPrefSize(100.0, 30);
 
         hBox.setStyle("-fx-background-color:  #e2e2e2");
 
@@ -218,7 +189,7 @@ public class AlertMessage {
         imageView.setPreserveRatio(true);
         VBox.setMargin(imageView, new Insets(5.0, 5.0, 5.0, 10.0));
 
-        imageView.setImage(new Image(AlertMessage.class.getResource(imageSource).toExternalForm()));
+        imageView.setImage(new Image(DialogMessage.class.getResource(imageSource).toExternalForm()));
 
         label.setAlignment(Pos.CENTER_LEFT);
         label.setPrefHeight(50.0);
@@ -236,11 +207,6 @@ public class AlertMessage {
         hBox0.setAlignment(Pos.CENTER);
         VBox.setMargin(hBox0, new Insets(0.0, 15.0, 10.0, 0.0));
 
-//        thirdBtn.getStylesheets().add("/css/other_css.css");
-        HBox.setMargin(thirdBtn, new Insets(0.0, 20.0, 0.0, 0.0));
-
-//        cancleBtn.getStylesheets().add("/css/other_css.css");
-        HBox.setMargin(cancleBtn, new Insets(0.0, 20.0, 0.0, 0.0));
 
         okBtn.setLayoutX(346.0);
         okBtn.setLayoutY(10.0);
@@ -248,8 +214,6 @@ public class AlertMessage {
 //        okBtn.getStylesheets().add("/css/other_css.css");
 
         okBtn.setStyle("-fx-background-color: "+buttonsColor+";");
-        cancleBtn.setStyle("-fx-background-color: "+buttonsColor+";");
-        thirdBtn.setStyle("-fx-background-color: "+buttonsColor+";");
 
 
         hBox.getChildren().add(label);
@@ -257,9 +221,6 @@ public class AlertMessage {
         hBox.getChildren().add(vBox0);
         vBox.getChildren().add(hBox);
         vBox.getChildren().add(messageTxt);
-        if (! thirdBtnTxt.isEmpty()){
-        hBox0.getChildren().add(thirdBtn);}
-        hBox0.getChildren().add(cancleBtn);
         hBox0.getChildren().add(okBtn);
         vBox.getChildren().add(hBox0);
         anchorPane.getChildren().add(vBox);
@@ -269,17 +230,6 @@ public class AlertMessage {
              Stage oldStage = (Stage) vBox.getScene().getWindow();
              oldStage.close();
         });
-        cancleBtn.setOnAction(event -> {
-            buttonAnswer = "no";
-            new BounceOut(anchorPane).play();
-            Stage oldStage = (Stage) vBox.getScene().getWindow();
-            oldStage.close();
-        });
-        thirdBtn.setOnAction(event -> {
-            buttonAnswer = "thirdButton";
-            Stage oldStage = (Stage) vBox.getScene().getWindow();
-            oldStage.close();
-        });
 
 
         Scene scene = new Scene(anchorPane);
@@ -287,7 +237,7 @@ public class AlertMessage {
 
         stage.initModality(Modality.APPLICATION_MODAL);
 
-        stage.setTitle("Alert Message");
+        stage.setTitle("Dialog Message");
 
         if (enableBouncing) {
             new BounceIn(anchorPane).play();
@@ -303,7 +253,7 @@ public class AlertMessage {
     }
 
 
-    public String showAlertMessage(){
+    public String showDialogMessage(){
         stage = new Stage();
 
         anchorPane = new AnchorPane();
@@ -315,17 +265,13 @@ public class AlertMessage {
         label = new Label();
         messageTxt = new Label();
         hBox0 = new HBox();
-        cancleBtn = new JFXButton("No");
-        okBtn = new JFXButton("Yes");
-        thirdBtn = new JFXButton(getThirdButtonTxt());
+        okBtn = new JFXButton("OK");
 
 
         anchorPane.setPrefHeight(148.0);
         anchorPane.setPrefWidth(432.0);
 
         okBtn.setPrefSize(60.0, 30);
-        cancleBtn.setPrefSize(60.0, 30);
-        thirdBtn.setPrefSize(100.0, 30);
 
         hBox.setStyle("-fx-background-color:  #e2e2e2");
 
@@ -357,7 +303,7 @@ public class AlertMessage {
         imageView.setPreserveRatio(true);
         VBox.setMargin(imageView, new Insets(5.0, 5.0, 5.0, 10.0));
 
-        imageView.setImage(new Image(AlertMessage.class.getResource(getImageSource()).toExternalForm()));
+        imageView.setImage(new Image(DialogMessage.class.getResource(getImageSource()).toExternalForm()));
 
         label.setAlignment(Pos.CENTER_LEFT);
         label.setPrefHeight(50.0);
@@ -375,30 +321,18 @@ public class AlertMessage {
         hBox0.setAlignment(Pos.CENTER);
         VBox.setMargin(hBox0, new Insets(0.0, 15.0, 10.0, 0.0));
 
-//        thirdBtn.getStylesheets().add("/css/other_css.css");
-        HBox.setMargin(thirdBtn, new Insets(0.0, 20.0, 0.0, 0.0));
-
-//        cancleBtn.getStylesheets().add("/css/other_css.css");
-        HBox.setMargin(cancleBtn, new Insets(0.0, 20.0, 0.0, 0.0));
-
         okBtn.setLayoutX(346.0);
         okBtn.setLayoutY(10.0);
 //        okBtn.getStyleClass().add("button");
 //        okBtn.getStylesheets().add("/css/other_css.css");
 
         okBtn.setStyle("-fx-background-color: "+getButtonsColor()+";");
-        cancleBtn.setStyle("-fx-background-color: "+getButtonsColor()+";");
-        thirdBtn.setStyle("-fx-background-color: "+getButtonsColor()+";");
-
 
         hBox.getChildren().add(label);
         vBox0.getChildren().add(imageView);
         hBox.getChildren().add(vBox0);
         vBox.getChildren().add(hBox);
         vBox.getChildren().add(messageTxt);
-        if (! thirdButtonTxt.equals("")){
-            hBox0.getChildren().add(thirdBtn);}
-        hBox0.getChildren().add(cancleBtn);
         hBox0.getChildren().add(okBtn);
         vBox.getChildren().add(hBox0);
         anchorPane.getChildren().add(vBox);
@@ -408,25 +342,13 @@ public class AlertMessage {
             Stage oldStage = (Stage) vBox.getScene().getWindow();
             oldStage.close();
         });
-        cancleBtn.setOnAction(event -> {
-            buttonAnswer = "no";
-            new BounceOut(anchorPane).play();
-            Stage oldStage = (Stage) vBox.getScene().getWindow();
-            oldStage.close();
-        });
-        thirdBtn.setOnAction(event -> {
-            buttonAnswer = "thirdButton";
-            Stage oldStage = (Stage) vBox.getScene().getWindow();
-            oldStage.close();
-        });
-
 
         Scene scene = new Scene(anchorPane);
 //        stage.initStyle(StageStyle.UNDECORATED);
 
         stage.initModality(Modality.APPLICATION_MODAL);
 
-        stage.setTitle("Alert Message");
+        stage.setTitle("Dialog Message");
 
         if (enableBouncing) {
             new BounceIn(anchorPane).play();
