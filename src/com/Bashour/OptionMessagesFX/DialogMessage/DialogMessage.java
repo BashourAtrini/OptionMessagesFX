@@ -1,7 +1,6 @@
 package com.Bashour.OptionMessagesFX.DialogMessage;
 
 import animatefx.animation.BounceIn;
-import animatefx.animation.BounceOut;
 import animatefx.animation.Shake;
 import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;
@@ -96,6 +95,11 @@ public class DialogMessage {
 
     public DialogMessage(){
 
+        setHeaderText("Attention !");
+        setMessageText("");
+        setButtonsColor("#c3c3c3");
+        setImageSource("/img/warning-triangle.png");
+
     }
 
     public DialogMessage(String headerText, String messageText){
@@ -104,13 +108,8 @@ public class DialogMessage {
         this.headerText = headerText;
         this.messageText = messageText;
 
-        if (imageSource.isEmpty() && buttonsColor.isEmpty()) {
-            showDialogMessage(headerText, messageText, "#c3c3c3", "/img/warning-triangle.png");
-        }else{
-            showDialogMessage(headerText, messageText, getButtonsColor(), getImageSource());
-        }
-
-
+        setButtonsColor("#c3c3c3");
+        setImageSource("/img/warning-triangle.png");
 
     }
 
@@ -122,11 +121,8 @@ public class DialogMessage {
         this.messageText = messageText;
         this.buttonsColor = buttonsColor;
 
-        if (imageSource.isEmpty()) {
-            showDialogMessage(headerText, messageText, buttonsColor, "/img/warning-triangle.png");
-        }else{
-            showDialogMessage(headerText, messageText, buttonsColor, getImageSource());
-        }
+        setImageSource("/img/warning-triangle.png");
+
     }
 
     public DialogMessage(String headerText, String messageText, String buttonsColor, String imageSource){
@@ -135,11 +131,11 @@ public class DialogMessage {
         this.messageText = messageText;
         this.buttonsColor = buttonsColor;
 
-        showDialogMessage(headerText, messageText, buttonsColor, imageSource);
+        setImageSource("/img/warning-triangle.png");
     }
 
 
-    public String showDialogMessage(String headerText, String messageTextVar, String buttonsColor, String imageSource){
+    public String show(String headerText, String messageTextVar, String buttonsColor, String imageSource){
          stage = new Stage();
 
          anchorPane = new AnchorPane();
@@ -211,7 +207,7 @@ public class DialogMessage {
         okBtn.setLayoutX(346.0);
         okBtn.setLayoutY(10.0);
 //        okBtn.getStyleClass().add("button");
-//        okBtn.getStylesheets().add("/css/other_css.css");
+//        okBtn.getStylesheets().add("/css/OptionMessagesFX.css");
 
         okBtn.setStyle("-fx-background-color: "+buttonsColor+";");
 
@@ -231,6 +227,8 @@ public class DialogMessage {
              oldStage.close();
         });
 
+
+        new Shake(imageView).play();
 
         Scene scene = new Scene(anchorPane);
 //        stage.initStyle(StageStyle.UNDECORATED);
@@ -253,7 +251,7 @@ public class DialogMessage {
     }
 
 
-    public String showDialogMessage(){
+    public String show(){
         stage = new Stage();
 
         anchorPane = new AnchorPane();
@@ -324,7 +322,7 @@ public class DialogMessage {
         okBtn.setLayoutX(346.0);
         okBtn.setLayoutY(10.0);
 //        okBtn.getStyleClass().add("button");
-//        okBtn.getStylesheets().add("/css/other_css.css");
+//        okBtn.getStylesheets().add("/css/OptionMessagesFX.css");
 
         okBtn.setStyle("-fx-background-color: "+getButtonsColor()+";");
 
@@ -342,6 +340,8 @@ public class DialogMessage {
             Stage oldStage = (Stage) vBox.getScene().getWindow();
             oldStage.close();
         });
+
+        new Shake(imageView).play();
 
         Scene scene = new Scene(anchorPane);
 //        stage.initStyle(StageStyle.UNDECORATED);

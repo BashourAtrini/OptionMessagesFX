@@ -45,6 +45,7 @@ public class ConfirmMessage  {
     String buttonTextFillColor = "";
     String imageSource = "";
 
+
     boolean enableBouncing = false;
     boolean enableShaking = false;
 
@@ -130,6 +131,15 @@ public class ConfirmMessage  {
 
     public ConfirmMessage(){
 
+        setHeaderText("Attention !");
+        setMessageText("");
+        setButton1Text("OK");
+        setButton2Text("Cancel");
+        setButton1Color("#ff0000");
+        setButton2Color("#c3c3c3");
+        setButtonTextFillColor("#010101");
+        setImageSource("/img/warning-circle.png");
+
     }
 
     public ConfirmMessage(String headerText, String messageText){
@@ -137,12 +147,18 @@ public class ConfirmMessage  {
         this.headerText = headerText;
         this.messageText = messageText;
 
+        setButton1Text("OK");
+        setButton2Text("Cancel");
+        setButton1Color("#ff0000");
+        setButton2Color("#c3c3c3");
+        setButtonTextFillColor("#010101");
+        setImageSource("/img/warning-circle.png");
 
-        if (imageSource.isEmpty() && buttonTextFillColor.isEmpty() && button1Color.isEmpty() && button2Color.isEmpty() && button1Text.isEmpty() && button2Text.isEmpty()){
-            showConfirm(headerText,messageText,"Yes","No","#f80000","#e2e2e2","#010101","/img/warning-circle.png");
-        }else{
-            showConfirm(headerText,messageText,getButton1Text(),getButton2Text(),getButton1Color(),getButton2Color(),getButtonTextFillColor(),getImageSource());
-        }
+//        if (imageSource.isEmpty() && buttonTextFillColor.isEmpty() && button1Color.isEmpty() && button2Color.isEmpty() && button1Text.isEmpty() && button2Text.isEmpty()){
+//            show(headerText,messageText,"Yes","No","#f80000","#e2e2e2","#010101","/img/warning-circle.png");
+//        }else{
+//            show(headerText,messageText,getButton1Text(),getButton2Text(),getButton1Color(),getButton2Color(),getButtonTextFillColor(),getImageSource());
+//        }
     }
 
     public ConfirmMessage(String headerText, String messageText, String button1Text, String button2Text){
@@ -152,11 +168,10 @@ public class ConfirmMessage  {
         this.button1Text = button1Text;
         this.button2Text = button2Text;
 
-        if (imageSource.isEmpty() && buttonTextFillColor.isEmpty() && button1Color.isEmpty() && button2Color.isEmpty()){
-            showConfirm(headerText,messageText,button1Text,button2Text,"#f80000","#e2e2e2","#010101","/img/warning-circle.png");
-        }else{
-            showConfirm(headerText,messageText,button1Text,button2Text,getButton1Color(),getButton2Color(),getButtonTextFillColor(),getImageSource());
-        }
+        setButton1Color("#ff0000");
+        setButton2Color("#c3c3c3");
+        setButtonTextFillColor("#010101");
+        setImageSource("/img/warning-circle.png");
     }
 
     public ConfirmMessage(String headerText, String messageText, String button1Text, String button2Text, String button1Color, String button2Color){
@@ -168,11 +183,8 @@ public class ConfirmMessage  {
         this.button1Color = button1Color;
         this.button2Color = button2Color;
 
-        if (imageSource.isEmpty() && buttonTextFillColor.isEmpty()){
-            showConfirm(headerText,messageText,button1Text,button2Text,button1Color,button2Color,"#010101","/img/warning-circle.png");
-        }else{
-            showConfirm(headerText,messageText,button1Text,button2Text,button1Color,button2Color,getButtonTextFillColor(),getImageSource());
-        }
+        setButtonTextFillColor("#010101");
+        setImageSource("/img/warning-circle.png");
 
     }
 
@@ -186,11 +198,7 @@ public class ConfirmMessage  {
         this.button2Color = button2Color;
         this.buttonTextFillColor = buttonTextFillColor;
 
-        if (imageSource.isEmpty()){
-            showConfirm(headerText,messageText,button1Text,button2Text,button1Color,button2Color,buttonTextFillColor,"/img/warning-circle.png");
-        }else{
-            showConfirm(headerText,messageText,button1Text,button2Text,button1Color,button2Color,buttonTextFillColor,getImageSource());
-        }
+        setImageSource("/img/warning-circle.png");
 
     }
 
@@ -205,12 +213,10 @@ public class ConfirmMessage  {
         this.buttonTextFillColor = buttonTextFillColor;
         this.imageSource = imageSource;
 
-        showConfirm(headerText,messageText,button1Text,button2Text,button1Color,button2Color,buttonTextFillColor,imageSource);
-
     }
 
 
-    public boolean showConfirm(String headerText, String messageText, String button1Text, String button2Text,String button1Color, String button2Color,String buttonTextFillColor, String imageSource){
+    public boolean show(String headerText, String messageText, String button1Text, String button2Text, String button1Color, String button2Color, String buttonTextFillColor, String imageSource){
          stage = new Stage();
 
          anchorPane = new AnchorPane();
@@ -278,13 +284,13 @@ public class ConfirmMessage  {
         hBox0.setAlignment(Pos.CENTER);
         VBox.setMargin(hBox0, new Insets(0.0, 15.0, 10.0, 0.0));
 
-//        cancleBtn.getStylesheets().add("/css/other_css.css");
+//        cancleBtn.getStylesheets().add("/css/OptionMessagesFX.css");
         HBox.setMargin(cancleBtn, new Insets(0.0, 20.0, 0.0, 0.0));
 
         okBtn.setLayoutX(346.0);
         okBtn.setLayoutY(10.0);
 //        okBtn.getStyleClass().add("button-red");
-//        okBtn.getStylesheets().add("/css/other_css.css");
+//        okBtn.getStylesheets().add("/css/OptionMessagesFX.css");
 
         okBtn.setStyle("-fx-background-color:" +button1Color+"; -fx-text-fill: "+buttonTextFillColor+";");
         cancleBtn.setStyle("-fx-background-color:" +button2Color+"; -fx-text-fill: "+buttonTextFillColor+";");
@@ -311,6 +317,8 @@ public class ConfirmMessage  {
         });
 
 
+        new Shake(imageView).play();
+
         Scene scene = new Scene(anchorPane);
 //        stage.initStyle(StageStyle.UNDECORATED);
 
@@ -332,7 +340,7 @@ public class ConfirmMessage  {
     }
 
 
-    public boolean showConfirm(){
+    public boolean show(){
 
 
         stage = new Stage();
@@ -403,13 +411,13 @@ public class ConfirmMessage  {
         hBox0.setAlignment(Pos.CENTER);
         VBox.setMargin(hBox0, new Insets(0.0, 15.0, 10.0, 0.0));
 
-//        cancleBtn.getStylesheets().add("/css/other_css.css");
+//        cancleBtn.getStylesheets().add("/css/OptionMessagesFX.css");
         HBox.setMargin(cancleBtn, new Insets(0.0, 20.0, 0.0, 0.0));
 
         okBtn.setLayoutX(346.0);
         okBtn.setLayoutY(10.0);
 //        okBtn.getStyleClass().add("button-red");
-//        okBtn.getStylesheets().add("/css/other_css.css");
+//        okBtn.getStylesheets().add("/css/OptionMessagesFX.css");
 
         okBtn.setStyle("-fx-background-color:" +getButton1Color()+"; -fx-text-fill: "+getButtonTextFillColor()+";");
         cancleBtn.setStyle("-fx-background-color:" +getButton2Color()+"; -fx-text-fill: "+getButtonTextFillColor()+";");
@@ -435,6 +443,8 @@ public class ConfirmMessage  {
             oldStage.close();
         });
 
+
+        new Shake(imageView).play();
 
         Scene scene = new Scene(anchorPane);
 //        stage.initStyle(StageStyle.UNDECORATED);

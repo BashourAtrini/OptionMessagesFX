@@ -8,5 +8,6 @@
       <Button layoutX="26.0" layoutY="60.0" mnemonicParsing="false" onAction="#alertMessageBtnAction" prefHeight="78.0" prefWidth="155.0" text="Alert Message" />
       <Button layoutX="409.0" layoutY="60.0" mnemonicParsing="false" onAction="#confirmMessageBtnAction" prefHeight="78.0" prefWidth="155.0" text="Confirm Message" />
       <Button layoutX="209.0" layoutY="60.0" mnemonicParsing="false" onAction="#dialogMessageBtnAction" prefHeight="78.0" prefWidth="155.0" text="Dialog Message" />
+      <Button layoutX="26.0" layoutY="217.0" mnemonicParsing="false" onAction="#inputMessageBtnAction" prefHeight="78.0" prefWidth="155.0" text="Input Message" />
    </children>
 </AnchorPane>

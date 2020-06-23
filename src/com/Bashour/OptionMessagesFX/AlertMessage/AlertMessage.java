@@ -107,6 +107,11 @@ public class AlertMessage {
 
     public AlertMessage(){
 
+        setHeaderText("Attention !");
+        setMessageText("");
+        setButtonsColor("#c3c3c3");
+        setImageSource("/img/warning-triangle.png");
+
     }
 
     public AlertMessage(String headerText, String messageText){
@@ -115,13 +120,8 @@ public class AlertMessage {
         this.headerText = headerText;
         this.messageText = messageText;
 
-        if (imageSource.isEmpty() && buttonsColor.isEmpty()) {
-            showAlertMessage(headerText, messageText, "", "#c3c3c3", "/img/warning-triangle.png");
-        }else{
-            showAlertMessage(headerText, messageText, getThirdButtonTxt(), getButtonsColor(), getImageSource());
-        }
-
-
+        setButtonsColor("#c3c3c3");
+        setImageSource("/img/warning-triangle.png");
 
     }
 
@@ -132,11 +132,9 @@ public class AlertMessage {
         this.messageText = messageText;
         this.thirdButtonTxt = thirdButtonTxt;
 
-        if (imageSource.isEmpty() && buttonsColor.isEmpty()) {
-            showAlertMessage(headerText, messageText, thirdButtonTxt, "#c3c3c3", "/img/warning-triangle.png");
-        }else{
-            showAlertMessage(headerText, messageText, thirdButtonTxt, buttonsColor, getImageSource());
-        }
+        setButtonsColor("#c3c3c3");
+        setImageSource("/img/warning-triangle.png");
+
     }
 
     public AlertMessage(String headerText, String messageText, String thirdButtonTxt, String buttonsColor){
@@ -146,11 +144,8 @@ public class AlertMessage {
         this.thirdButtonTxt = thirdButtonTxt;
         this.buttonsColor = buttonsColor;
 
-        if (imageSource.isEmpty()) {
-            showAlertMessage(headerText, messageText, thirdButtonTxt, buttonsColor, "/img/warning-triangle.png");
-        }else{
-            showAlertMessage(headerText, messageText, thirdButtonTxt, buttonsColor, getImageSource());
-        }
+        setImageSource("/img/warning-triangle.png");
+
     }
 
     public AlertMessage(String headerText, String messageText, String thirdButtonTxt, String buttonsColor, String imageSource){
@@ -160,11 +155,10 @@ public class AlertMessage {
         this.thirdButtonTxt = thirdButtonTxt;
         this.buttonsColor = buttonsColor;
 
-        showAlertMessage(headerText, messageText, thirdButtonTxt, buttonsColor, imageSource);
     }
 
 
-    public String showAlertMessage(String headerText, String messageTextVar, String thirdBtnTxt, String buttonsColor, String imageSource){
+    public String show(String headerText, String messageTextVar, String thirdBtnTxt, String buttonsColor, String imageSource){
          stage = new Stage();
 
          anchorPane = new AnchorPane();
@@ -184,8 +178,8 @@ public class AlertMessage {
         anchorPane.setPrefHeight(148.0);
         anchorPane.setPrefWidth(432.0);
 
-        okBtn.setPrefSize(60.0, 30);
-        cancleBtn.setPrefSize(60.0, 30);
+        okBtn.setPrefSize(100.0, 30);
+        cancleBtn.setPrefSize(100.0, 30);
         thirdBtn.setPrefSize(100.0, 30);
 
         hBox.setStyle("-fx-background-color:  #e2e2e2");
@@ -204,7 +198,7 @@ public class AlertMessage {
         vBox.setPrefWidth(432.0);
 
         hBox.setAlignment(Pos.TOP_LEFT);
-        hBox.setPrefHeight(41.0);
+        hBox.setPrefHeight(35.0);
         hBox.setPrefWidth(432.0);
 
         HBox.setHgrow(vBox0, javafx.scene.layout.Priority.ALWAYS);
@@ -212,8 +206,8 @@ public class AlertMessage {
         vBox0.setPrefHeight(200.0);
         vBox0.setPrefWidth(383.0);
 
-        imageView.setFitHeight(45.0);
-        imageView.setFitWidth(55.0);
+        imageView.setFitHeight(35.0);
+        imageView.setFitWidth(35.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
         VBox.setMargin(imageView, new Insets(5.0, 5.0, 5.0, 10.0));
@@ -236,20 +230,20 @@ public class AlertMessage {
         hBox0.setAlignment(Pos.CENTER);
         VBox.setMargin(hBox0, new Insets(0.0, 15.0, 10.0, 0.0));
 
-//        thirdBtn.getStylesheets().add("/css/other_css.css");
+//        thirdBtn.getStylesheets().add("/css/OptionMessagesFX.css");
         HBox.setMargin(thirdBtn, new Insets(0.0, 20.0, 0.0, 0.0));
 
-//        cancleBtn.getStylesheets().add("/css/other_css.css");
+//        cancleBtn.getStylesheets().add("/css/OptionMessagesFX.css");
         HBox.setMargin(cancleBtn, new Insets(0.0, 20.0, 0.0, 0.0));
 
         okBtn.setLayoutX(346.0);
         okBtn.setLayoutY(10.0);
 //        okBtn.getStyleClass().add("button");
-//        okBtn.getStylesheets().add("/css/other_css.css");
+//        okBtn.getStylesheets().add("/css/OptionMessagesFX.css");
 
-        okBtn.setStyle("-fx-background-color: "+buttonsColor+";");
-        cancleBtn.setStyle("-fx-background-color: "+buttonsColor+";");
-        thirdBtn.setStyle("-fx-background-color: "+buttonsColor+";");
+        okBtn.setStyle("-fx-background-color: "+buttonsColor+"; -fx-background-radius: 15px");
+        cancleBtn.setStyle("-fx-background-color: "+buttonsColor+"; -fx-background-radius: 15px");
+        thirdBtn.setStyle("-fx-background-color: "+buttonsColor+"; -fx-background-radius: 15px");
 
 
         hBox.getChildren().add(label);
@@ -282,6 +276,8 @@ public class AlertMessage {
         });
 
 
+        new Shake(imageView).play();
+
         Scene scene = new Scene(anchorPane);
 //        stage.initStyle(StageStyle.UNDECORATED);
 
@@ -303,7 +299,7 @@ public class AlertMessage {
     }
 
 
-    public String showAlertMessage(){
+    public String show(){
         stage = new Stage();
 
         anchorPane = new AnchorPane();
@@ -323,9 +319,10 @@ public class AlertMessage {
         anchorPane.setPrefHeight(148.0);
         anchorPane.setPrefWidth(432.0);
 
-        okBtn.setPrefSize(60.0, 30);
-        cancleBtn.setPrefSize(60.0, 30);
+        okBtn.setPrefSize(100.0, 30);
+        cancleBtn.setPrefSize(100.0, 30);
         thirdBtn.setPrefSize(100.0, 30);
+
 
         hBox.setStyle("-fx-background-color:  #e2e2e2");
 
@@ -343,7 +340,7 @@ public class AlertMessage {
         vBox.setPrefWidth(432.0);
 
         hBox.setAlignment(Pos.TOP_LEFT);
-        hBox.setPrefHeight(41.0);
+        hBox.setPrefHeight(35.0);
         hBox.setPrefWidth(432.0);
 
         HBox.setHgrow(vBox0, javafx.scene.layout.Priority.ALWAYS);
@@ -351,8 +348,8 @@ public class AlertMessage {
         vBox0.setPrefHeight(200.0);
         vBox0.setPrefWidth(383.0);
 
-        imageView.setFitHeight(45.0);
-        imageView.setFitWidth(55.0);
+        imageView.setFitHeight(35.0);
+        imageView.setFitWidth(35.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
         VBox.setMargin(imageView, new Insets(5.0, 5.0, 5.0, 10.0));
@@ -362,7 +359,7 @@ public class AlertMessage {
         label.setAlignment(Pos.CENTER_LEFT);
         label.setPrefHeight(50.0);
         label.setPrefWidth(338.0);
-        label.setText(headerText);
+        label.setText(getHeaderText());
         label.setFont(new Font(18.0));
         HBox.setMargin(label, new Insets(0.0, 5.0, 0.0, 10.0));
         VBox.setMargin(hBox, new Insets(0.0, 0.0, 10.0, 0.0));
@@ -375,20 +372,20 @@ public class AlertMessage {
         hBox0.setAlignment(Pos.CENTER);
         VBox.setMargin(hBox0, new Insets(0.0, 15.0, 10.0, 0.0));
 
-//        thirdBtn.getStylesheets().add("/css/other_css.css");
+//        thirdBtn.getStylesheets().add("/css/OptionMessagesFX.css");
         HBox.setMargin(thirdBtn, new Insets(0.0, 20.0, 0.0, 0.0));
 
-//        cancleBtn.getStylesheets().add("/css/other_css.css");
+//        cancleBtn.getStylesheets().add("/css/OptionMessagesFX.css");
         HBox.setMargin(cancleBtn, new Insets(0.0, 20.0, 0.0, 0.0));
 
         okBtn.setLayoutX(346.0);
         okBtn.setLayoutY(10.0);
 //        okBtn.getStyleClass().add("button");
-//        okBtn.getStylesheets().add("/css/other_css.css");
+//        okBtn.getStylesheets().add("/css/OptionMessagesFX.css");
 
-        okBtn.setStyle("-fx-background-color: "+getButtonsColor()+";");
-        cancleBtn.setStyle("-fx-background-color: "+getButtonsColor()+";");
-        thirdBtn.setStyle("-fx-background-color: "+getButtonsColor()+";");
+        okBtn.setStyle("-fx-background-color: "+getButtonsColor()+"; -fx-background-radius: 15px");
+        cancleBtn.setStyle("-fx-background-color: "+getButtonsColor()+"; -fx-background-radius: 15px");
+        thirdBtn.setStyle("-fx-background-color: "+getButtonsColor()+"; -fx-background-radius: 15px");
 
 
         hBox.getChildren().add(label);
@@ -420,6 +417,8 @@ public class AlertMessage {
             oldStage.close();
         });
 
+
+        new Shake(imageView).play();
 
         Scene scene = new Scene(anchorPane);
 //        stage.initStyle(StageStyle.UNDECORATED);
