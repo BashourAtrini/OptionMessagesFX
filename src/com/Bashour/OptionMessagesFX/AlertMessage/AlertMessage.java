@@ -154,6 +154,7 @@ public class AlertMessage {
         this.messageText = messageText;
         this.thirdButtonTxt = thirdButtonTxt;
         this.buttonsColor = buttonsColor;
+        this.imageSource = imageSource;
 
     }
 
